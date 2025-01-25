@@ -94,153 +94,23 @@ return imageList;
 }
 
 
-// Future<void>downloadImage({required String imageurl,required int imageId,required BuildContext context})async{
-// //    try {
-// //       final response = await http.get(Uri.parse(imageurl));
-
-// //       if (response.statusCode >= 200 && response.statusCode <= 299) {
-// //        // Attempt to download the image using image_downloader
-// //     var imageId = await ImageDownloader.downloadImage(imageurl);
-
-// //     if (imageId == null) {
-// //       // Show an error message if download fails
-// //       if (context.mounted) {
-// //         ScaffoldMessenger.of(context).clearSnackBars();
-// //         ScaffoldMessenger.of(context).showSnackBar(
-// //           const SnackBar(
-// //             backgroundColor: Colors.red,
-// //             content: Text("Failed to download image."),
-// //             duration: Duration(seconds: 2),
-// //           ),
-// //         );
-// //       }
-// //       return;
-// //     }
-
-// //     // Find the file path of the downloaded image (optional)
-// //     var filePath = await ImageDownloader.findPath(imageId);
-
-// //         if (context.mounted) {
-// //           ScaffoldMessenger.of(context).clearSnackBars();
-
-// //           ScaffoldMessenger.of(context).showSnackBar(
-// //             SnackBar(
-// //               backgroundColor: Colors.green,
-// //               content: Text("File's been saved at: ${filePath}"),
-// //               duration: const Duration(seconds: 2),
-// //             ),
-// //           );
-// //         }
-// //       }
-// //     } catch (error) {
-// // // Handle any errors during the download process
-// //     if (context.mounted) {
-// //       ScaffoldMessenger.of(context).clearSnackBars();
-// //       ScaffoldMessenger.of(context).showSnackBar(
-// //         SnackBar(
-// //           backgroundColor: Colors.red,
-// //           content: Text("Error downloading image: $error"),
-// //           duration: const Duration(seconds: 2),
-// //         ),
-// //       );
-// //     }
-// // }
-
-// }
-// Future<void> downloadImage({
-//   required String imageurl,
-//   required int imageId,
-//   required BuildContext context,
-// }) async {
-//   try {
-//       ScaffoldMessenger.of(context)
-//         .showSnackBar(SnackBar(content: Text("Downloading Started...")));
-//     final response = await http.get(Uri.parse(imageurl));
-
-//     if (response.statusCode >= 200 && response.statusCode <= 299) {
-//       var imageId = await ImageDownloader.downloadImage(imageurl);
-//       if (imageId == null) {
-//         return;
-//       }
-//       // Below is a method of obtaining saved image information.
-//       var fileName = await ImageDownloader.findName(imageId);
-//       var path = await ImageDownloader.findPath(imageId);
-//       var size = await ImageDownloader.findByteSize(imageId);
-//       var mimeType = await ImageDownloader.findMimeType(imageId);
-//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-//         content: Text("Downloaded Sucessfully"),
-//         action: SnackBarAction(
-//             label: "Open",
-//             onPressed: () {
-//               OpenFile.open(path);
-//             }),
-//       ));
-//       print("IMAGE DOWNLOADED");
-        
-//     } else {
-      
-//     }
-//   } on PlatformException catch (error) {
-//       print(error);
-//       ScaffoldMessenger.of(context)
-//           .showSnackBar(SnackBar(content: Text("Error Occured - $error")));
-//     }
-// }
-
-
-  // Future<void> downloadImage(
-  //     {required String imageUrl,
-  //     required int imageId,
-  //     required BuildContext context}) async {
-  //   try {
-  //     final response = await http.get(Uri.parse(imageUrl));
-
-  //     if (response.statusCode >= 200 && response.statusCode <= 299) {
-  //       final bytes = response.bodyBytes;
-  //       final directory = await ExternalPath.getExternalStoragePublicDirectory(
-  //           ExternalPath.DIRECTORY_DOWNLOADS);
-
-  //       final file = File("$directory/$imageId.png");
-  //       await file.writeAsBytes(bytes);
-
-  //       MediaScanner.loadMedia(path: file.path);
-
-  //       if (context.mounted) {
-  //         ScaffoldMessenger.of(context).clearSnackBars();
-
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           SnackBar(
-  //             backgroundColor: Colors.green,
-  //             content: Text("File's been saved at: ${file.path}"),
-  //             duration: const Duration(seconds: 2),
-  //           ),
-  //         );
-  //       }
-  //     }
-  //   } catch (_) {}
-  // }
 Future<void> downloadImage({
   required String imageUrl,
   required int imageId,
   required BuildContext context,
 }) async {
   try {
-    // Fetch the image from the URL
     final response = await http.get(Uri.parse(imageUrl));
 
     if (response.statusCode >= 200 && response.statusCode <= 299) {
       final bytes = response.bodyBytes;
 
-      // Get the application's internal storage directory
       final directory = await getApplicationDocumentsDirectory();
 
-      // Create the file path
       final file = File("${directory.path}/$imageId.png");
 
-  // Save the file
       await file.writeAsBytes(bytes);
 
-      // Notify the user of success
       if (context.mounted) {
         ScaffoldMessenger.of(context).clearSnackBars();
 

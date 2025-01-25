@@ -1,9 +1,8 @@
 import 'dart:math';
 
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dummyproject/app/const/repository.dart';
 import 'package:dummyproject/controller/get_images_controller.dart';
-import 'package:dummyproject/model/image_model.dart';
 import 'package:dummyproject/view/preview_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -149,7 +148,7 @@ double screenWidth = MediaQuery.of(context).size.width;
                color: Colors.white,
                 child: MasonryGridView.count(
                   
-                  padding: EdgeInsets.all(7),
+                  padding: const EdgeInsets.all(7),
                   controller: _scrollController,
                   itemCount: controller.images.length + (controller.isLoading ? 1 : 0),
                   crossAxisCount: 2,

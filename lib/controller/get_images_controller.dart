@@ -1,33 +1,6 @@
-import 'package:dummyproject/model/user_model.dart';
 import 'package:dummyproject/services/api_services.dart';
 import 'package:flutter/material.dart';
 
-// class GetImageListcontroller extends ChangeNotifier {
-//   final ApiServices apiServices=ApiServices();
-// String? _errormessage;
-// bool _isloading=false;
-
-// String? get errormessage  =>_errormessage;
-// bool get isloading=>_isloading;
-
-// Future<void>loadUsers()async{
-
-// _isloading=true;
-// _errormessage=null;
-// notifyListeners();
-// try{
-
-// }
-// catch(e){
-// _errormessage=e.toString();
-// }
-// finally{
-//   _isloading=false;
-//   notifyListeners();
-// }
-
-// }import 'package:flutter/material.dart';
-import 'package:dummyproject/services/api_services.dart';
 import 'package:dummyproject/model/image_model.dart';
 
 class GetImagesController extends ChangeNotifier {
