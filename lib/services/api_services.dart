@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 
 import 'package:http/http.dart'as http;
+import 'package:path_provider/path_provider.dart';
 
 
 class ApiServices {
@@ -218,4 +219,54 @@ return imageList;
   //     }
   //   } catch (_) {}
   // }
+Future<void> downloadImage({
+  required String imageUrl,
+  required int imageId,
+  required BuildContext context,
+}) async {
+  try {
+    // Fetch the image from the URL
+    final response = await http.get(Uri.parse(imageUrl));
+
+    if (response.statusCode >= 200 && response.statusCode <= 299) {
+      final bytes = response.bodyBytes;
+
+      // Get the application's internal storage directory
+      final directory = await getApplicationDocumentsDirectory();
+
+      // Create the file path
+      final file = File("${directory.path}/$imageId.png");
+
+  // Save the file
+      await file.writeAsBytes(bytes);
+
+      // Notify the user of success
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            content: Text("File's been saved at: ${file.path}"),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } else {
+      throw Exception("Failed to download image.");
+    }
+  } catch (e) {
+    // Handle errors gracefully
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text("Failed to save the image: $e"),
+          duration: const Duration(seconds: 2),
+        ),
+      );
 }
+}
+}}

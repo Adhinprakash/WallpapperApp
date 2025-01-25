@@ -39,10 +39,10 @@ class _PreviewPageState extends State<PreviewPage> {
         foregroundColor: const Color.fromRGBO(255, 255, 255, .8),
         shape: const CircleBorder(),
         onPressed: () {
-          // apiServices.downloadImage(
-          //     imageUrl: widget.imageUrl,
-          //     imageId: widget.imageId,
-          //     context: context);
+          apiServices.downloadImage(
+              imageUrl: widget.imageUrl,
+              imageId: widget.imageId,
+              context: context);
         },
         child: const Icon(Icons.download),
       ),

@@ -55,10 +55,12 @@ class _UserlistViewState extends State<UserlistView> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-      toolbarHeight:100,
+      toolbarHeight:screenHeight*0.14,
         backgroundColor: Colors.black,
         centerTitle: true,
         title: Column(
@@ -67,14 +69,14 @@ class _UserlistViewState extends State<UserlistView> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Wall-',
+                  'Wall',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.blue,
                       fontSize: 22),
                 ),
                 Text(
-                  'E',
+                  'Nex',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.red,
@@ -83,7 +85,7 @@ class _UserlistViewState extends State<UserlistView> {
               ],
               
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 18),
           Consumer<GetImagesController>(
               builder: (context, controller, child) {
                 return SizedBox(
@@ -100,6 +102,13 @@ class _UserlistViewState extends State<UserlistView> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Chip(
+                            shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(20), 
+    side: BorderSide(
+      color: isSelected ? Colors.blue : Colors.grey, 
+      width: 1.0, 
+    ),
+  ),
                             label: Text(
                               _categories[index],
                               style: TextStyle(
@@ -130,7 +139,7 @@ class _UserlistViewState extends State<UserlistView> {
           }
       
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 9,vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: ClipRRect(
                borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20), 
@@ -139,6 +148,8 @@ class _UserlistViewState extends State<UserlistView> {
               child: Container(
                color: Colors.white,
                 child: MasonryGridView.count(
+                  
+                  padding: EdgeInsets.all(7),
                   controller: _scrollController,
                   itemCount: controller.images.length + (controller.isLoading ? 1 : 0),
                   crossAxisCount: 2,
